@@ -1,20 +1,25 @@
 package sqlcrepository
 
 import (
-	"database/sql"
+	"context"
 	"templatebe/pkg/domain"
+	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
 )
 
 type SQLCCustomerRepository struct {
-	sqlDB *sql.DB
+	sqlcQueries *sqlc.Queries
 }
 
-func NewSQLCCustomerRepository(sqlDB *sql.DB) *SQLCCustomerRepository {
+func NewSQLCCustomerRepository(sqlcQueries *sqlc.Queries) *SQLCCustomerRepository {
 	return &SQLCCustomerRepository{
-		sqlDB: sqlDB,
+		sqlcQueries: sqlcQueries,
 	}
 }
 
-func (s *SQLCCustomerRepository) Create(customer domain.Customer) error {
-	return nil
+func (s *SQLCCustomerRepository) Create(ctx context.Context, customer domain.Customer) (int64, error) {
+	newCustomer, err := s.sqlcQueries.CreateCustomer(ctx, customer.Name)
+	if err != nil {
+		return 0, err
+	}
+	return newCustomer.ID, nil
 }

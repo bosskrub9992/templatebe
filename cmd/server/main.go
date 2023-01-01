@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	v1 "templatebe/pkg/api/v1"
 	"templatebe/pkg/infrastructure/sqlcrepository"
+	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
 	"templatebe/pkg/router"
 	"templatebe/pkg/service"
 
@@ -17,7 +18,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	customerRepo := sqlcrepository.NewSQLCCustomerRepository(sqlDB)
+	queries := sqlc.New(sqlDB)
+	customerRepo := sqlcrepository.NewSQLCCustomerRepository(queries)
 	customerService := service.NewCustomerService(customerRepo)
 	customerHandler := v1.NewCustomerHandler(customerService)
 

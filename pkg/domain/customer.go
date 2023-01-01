@@ -1,6 +1,6 @@
 package domain
 
 type Customer struct {
-	ID   int
+	ID   int64
 	Name string
 }

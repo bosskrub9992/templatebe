@@ -1,4 +1,9 @@
-version: "1"
-project:
-    id: ""
-packages: []
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "query.sql"
+    schema: "schema.sql"
+    gen:
+      go:
+        package: "sqlc"
+        out: "sqlc"

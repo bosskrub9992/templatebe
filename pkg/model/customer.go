@@ -1,6 +1,10 @@
 package model
 
-type Customer struct {
-	ID   int    `json:"id"`
+type CreateCustomerRequest struct {
+	ID   int64  `json:"id"`
 	Name string `json:"name"`
+}
+
+type CreateCustomerResponse struct {
+	ID int64 `json:"id"`
 }

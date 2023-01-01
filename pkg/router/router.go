@@ -7,7 +7,7 @@ import (
 )
 
 func RegisterRoute(e *echo.Echo, customerHandler *v1.CustomerHandler) {
-	v1Group := e.Group("v1")
+	v1Group := e.Group("/v1")
 
-	v1Group.POST("create-customer", customerHandler.CreateCustomer)
+	v1Group.POST("/create-customer", customerHandler.CreateCustomer)
 }

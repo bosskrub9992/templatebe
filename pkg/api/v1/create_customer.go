@@ -19,12 +19,14 @@ func NewCustomerHandler(customerService *service.CustomerService) *CustomerHandl
 }
 
 func (h *CustomerHandler) CreateCustomer(c echo.Context) error {
-	var customer model.Customer
+	var customer model.CreateCustomerRequest
 	if err := c.Bind(&customer); err != nil {
 		return err
 	}
-	if err := h.customerService.CreateCustomer(customer); err != nil {
+	ctx := c.Request().Context()
+	resp, err := h.customerService.CreateCustomer(ctx, customer)
+	if err != nil {
 		return err
 	}
-	return c.JSON(http.StatusCreated, nil)
+	return c.JSON(http.StatusCreated, resp)
 }

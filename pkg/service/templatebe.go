@@ -1,12 +1,13 @@
 package service
 
 import (
+	"context"
 	"templatebe/pkg/domain"
 	"templatebe/pkg/model"
 )
 
 type CustomerRepository interface {
-	Create(customer domain.Customer) error
+	Create(ctx context.Context, customer domain.Customer) (int64, error)
 }
 
 type CustomerService struct {
@@ -19,10 +20,16 @@ func NewCustomerService(customerRepo CustomerRepository) *CustomerService {
 	}
 }
 
-func (c *CustomerService) CreateCustomer(customer model.Customer) error {
+func (c *CustomerService) CreateCustomer(ctx context.Context, customer model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
 	domainCustomer := domain.Customer{
 		ID:   customer.ID,
 		Name: customer.Name,
 	}
-	return c.customerRepository.Create(domainCustomer)
+	customerID, err := c.customerRepository.Create(ctx, domainCustomer)
+	if err != nil {
+		return nil, err
+	}
+	return &model.CreateCustomerResponse{
+		ID: customerID,
+	}, nil
 }
