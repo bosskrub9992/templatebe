@@ -18,6 +18,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer sqlDB.Close()
 	queries := sqlc.New(sqlDB)
 	customerRepo := sqlcrepository.NewSQLCCustomerRepository(queries)
 	customerService := service.NewCustomerService(customerRepo)
