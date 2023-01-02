@@ -6,7 +6,23 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Config struct{}
+type Config struct {
+	Server   Server
+	Database Database
+}
+
+type Server struct {
+	Port string
+}
+
+type Database struct {
+	Port     string
+	Host     string
+	DBName   string
+	Username string
+	Password string
+	SSLmode  string
+}
 
 func New() *Config {
 	config := new(Config)

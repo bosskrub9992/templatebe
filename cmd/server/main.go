@@ -2,7 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	v1 "templatebe/pkg/api/v1"
+	"templatebe/pkg/config"
 	"templatebe/pkg/infrastructure/sqlcrepository"
 	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
 	"templatebe/pkg/router"
@@ -12,9 +14,16 @@ import (
 )
 
 func main() {
-	e := echo.New()
-
-	sqlDB, err := sql.Open("pgx", "localhost")
+	cfg := config.New()
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		cfg.Database.Host,
+		cfg.Database.Port,
+		cfg.Database.Username,
+		cfg.Database.Password,
+		cfg.Database.DBName,
+		cfg.Database.SSLmode,
+	)
+	sqlDB, err := sql.Open("pgx", dsn)
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +33,8 @@ func main() {
 	customerService := service.NewCustomerService(customerRepo)
 	customerHandler := v1.NewCustomerHandler(customerService)
 
+	e := echo.New()
 	router.RegisterRoute(e, customerHandler)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
