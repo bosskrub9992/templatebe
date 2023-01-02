@@ -13,3 +13,8 @@ Generating sqlc by command prompt
     cd ./pkg/infrastructure/sqlcrepository
     docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate
 ```
+
+todo
+- add validator
+- add logger
+- add wire
