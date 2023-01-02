@@ -11,6 +11,8 @@ import (
 	"templatebe/pkg/service"
 
 	"github.com/labstack/echo/v4"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 func main() {
