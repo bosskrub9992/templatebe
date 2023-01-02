@@ -20,12 +20,12 @@ func NewCustomerService(customerRepo CustomerRepository) *CustomerService {
 	}
 }
 
-func (c *CustomerService) CreateCustomer(ctx context.Context, customer model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
+func (s *CustomerService) CreateCustomer(ctx context.Context, customer model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
 	domainCustomer := domain.Customer{
 		ID:   customer.ID,
 		Name: customer.Name,
 	}
-	customerID, err := c.customerRepository.Create(ctx, domainCustomer)
+	customerID, err := s.customerRepository.Create(ctx, domainCustomer)
 	if err != nil {
 		return nil, err
 	}

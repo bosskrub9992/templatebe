@@ -7,17 +7,17 @@ import (
 )
 
 type SQLCCustomerRepository struct {
-	sqlcQueries *sqlc.Queries
+	db *sqlc.Queries
 }
 
-func NewSQLCCustomerRepository(sqlcQueries *sqlc.Queries) *SQLCCustomerRepository {
+func NewSQLCCustomerRepository(db *sqlc.Queries) *SQLCCustomerRepository {
 	return &SQLCCustomerRepository{
-		sqlcQueries: sqlcQueries,
+		db: db,
 	}
 }
 
-func (s *SQLCCustomerRepository) Create(ctx context.Context, customer domain.Customer) (int64, error) {
-	newCustomer, err := s.sqlcQueries.CreateCustomer(ctx, customer.Name)
+func (r *SQLCCustomerRepository) Create(ctx context.Context, customer domain.Customer) (int64, error) {
+	newCustomer, err := r.db.CreateCustomer(ctx, customer.Name)
 	if err != nil {
 		return 0, err
 	}
