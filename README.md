@@ -15,6 +15,4 @@ Generating sqlc by command prompt
 ```
 
 todo
-- add validator
-- add logger
 - add wire
