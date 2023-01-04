@@ -16,3 +16,4 @@ Generating sqlc by command prompt
 
 todo
 - add wire
+- add custom error struct

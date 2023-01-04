@@ -19,17 +19,19 @@ func NewCustomerHandler(customerService *service.CustomerService) *CustomerHandl
 }
 
 func (h *CustomerHandler) CreateCustomer(c echo.Context) error {
-	var req model.CreateCustomerRequest
+	var (
+		req model.CreateCustomerRequest
+		ctx = c.Request().Context()
+	)
 	if err := c.Bind(&req); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, err)
 	}
 	if err := c.Validate(&req); err != nil {
-		return err
+		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
-	ctx := c.Request().Context()
 	resp, err := h.customerService.CreateCustomer(ctx, req)
 	if err != nil {
-		return err
+		return c.JSON(http.StatusInternalServerError, err)
 	}
 	return c.JSON(http.StatusCreated, resp)
 }
