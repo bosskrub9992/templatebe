@@ -19,16 +19,14 @@ func NewCustomerHandler(customerService *service.CustomerService) *CustomerHandl
 }
 
 func (h *CustomerHandler) CreateCustomer(c echo.Context) error {
-	var (
-		req model.CreateCustomerRequest
-		ctx = c.Request().Context()
-	)
+	var req model.CreateCustomerRequest
 	if err := c.Bind(&req); err != nil {
 		return err
 	}
 	if err := c.Validate(&req); err != nil {
 		return err
 	}
+	ctx := c.Request().Context()
 	resp, err := h.customerService.CreateCustomer(ctx, req)
 	if err != nil {
 		return err
