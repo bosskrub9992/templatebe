@@ -21,8 +21,8 @@ func main() {
 		panic(err)
 	}
 	defer sqlDB.Close()
-	queries := sqlc.New(sqlDB)
-	customerRepo := sqlcrepository.NewSQLCCustomerRepository(queries)
+	db := sqlc.New(sqlDB)
+	customerRepo := sqlcrepository.NewSQLCCustomerRepository(db)
 	logger := log.NewZerolog(cfg)
 	customerService := service.NewCustomerService(logger, customerRepo)
 	customerHandler := v1.NewCustomerHandler(customerService)
