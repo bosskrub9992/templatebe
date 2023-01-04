@@ -14,7 +14,6 @@ func NewZerolog(cfg *config.Config) *zerolog.Logger {
 	if !cfg.Logger.JSON {
 		logger = zerolog.New(zerolog.ConsoleWriter{
 			Out:        os.Stderr,
-			NoColor:    false,
 			TimeFormat: time.RFC3339,
 		})
 	}
