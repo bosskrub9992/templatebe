@@ -7,3 +7,6 @@ database:
   username: "postgres"
   password: "postgres"
   sslmode: "disable"
+logger:
+  globalMinLevel: "debug"
+  json: "false"

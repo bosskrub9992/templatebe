@@ -3,10 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"templatebe/pkg/api"
 	v1 "templatebe/pkg/api/v1"
 	"templatebe/pkg/config"
 	"templatebe/pkg/infrastructure/sqlcrepository"
 	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
+	"templatebe/pkg/log"
 	"templatebe/pkg/router"
 	"templatebe/pkg/service"
 
@@ -32,11 +34,13 @@ func main() {
 	defer sqlDB.Close()
 	queries := sqlc.New(sqlDB)
 	customerRepo := sqlcrepository.NewSQLCCustomerRepository(queries)
-	customerService := service.NewCustomerService(customerRepo)
+	logger := log.NewZerolog(cfg)
+	customerService := service.NewCustomerService(logger, customerRepo)
 	customerHandler := v1.NewCustomerHandler(customerService)
 
 	e := echo.New()
 	router.RegisterRoute(e, customerHandler)
+	e.Validator = api.NewRequestValidator()
 
 	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }

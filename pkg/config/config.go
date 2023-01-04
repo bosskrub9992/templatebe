@@ -9,6 +9,7 @@ import (
 type Config struct {
 	Server   Server
 	Database Database
+	Logger   Logger
 }
 
 type Server struct {
@@ -22,6 +23,11 @@ type Database struct {
 	Username string
 	Password string
 	SSLmode  string
+}
+
+type Logger struct {
+	GlobalMinLevel string
+	JSON           bool
 }
 
 func New() *Config {
