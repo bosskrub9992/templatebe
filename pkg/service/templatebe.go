@@ -24,12 +24,12 @@ func NewCustomerService(logger *zerolog.Logger, customerRepo CustomerRepository)
 	}
 }
 
-func (s *CustomerService) CreateCustomer(ctx context.Context, request model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
-	s.logger.Info().Msgf("CreateCustomer request: %+v", request)
+func (s *CustomerService) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
+	s.logger.Info().Interface("req", req).Msg("CreateCustomer")
 
 	customer := domain.Customer{
-		ID:   request.ID,
-		Name: request.Name,
+		ID:   req.ID,
+		Name: req.Name,
 	}
 
 	customerID, err := s.customerRepository.Create(ctx, customer)
@@ -37,7 +37,7 @@ func (s *CustomerService) CreateCustomer(ctx context.Context, request model.Crea
 		s.logger.Error().Err(err).Send()
 		return nil, err
 	}
-	
+
 	return &model.CreateCustomerResponse{
 		ID: customerID,
 	}, nil
