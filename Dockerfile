@@ -18,11 +18,11 @@ FROM alpine:3.17
 
 COPY --from=builder /ms-service .
 
-#Set default timezone
-RUN apk add --no-cache tzdata
-ENV TZ Asia/Bangkok
-RUN ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
-RUN echo "Asia/Bangkok" > /etc/timezone
+# #Set default timezone
+# RUN apk add --no-cache tzdata
+# ENV TZ Asia/Bangkok
+# RUN ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
+# RUN echo "Asia/Bangkok" > /etc/timezone
 
 EXPOSE 8080
 
