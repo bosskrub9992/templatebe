@@ -1,7 +1,7 @@
 package router
 
 import (
-	v1 "templatebe/pkg/api/v1"
+	v1 "templatebe/src/api/v1"
 
 	"github.com/labstack/echo/v4"
 )

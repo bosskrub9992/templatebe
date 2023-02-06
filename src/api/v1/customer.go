@@ -2,19 +2,19 @@ package v1
 
 import (
 	"net/http"
-	"templatebe/pkg/model"
-	"templatebe/pkg/service"
+	service "templatebe/src/controller"
+	"templatebe/src/model"
 
 	"github.com/labstack/echo/v4"
 )
 
 type CustomerHandler struct {
-	customerService *service.CustomerService
+	CustomerController *service.CustomerController
 }
 
-func NewCustomerHandler(customerService *service.CustomerService) *CustomerHandler {
+func NewCustomerHandler(CustomerController *service.CustomerController) *CustomerHandler {
 	return &CustomerHandler{
-		customerService: customerService,
+		CustomerController: CustomerController,
 	}
 }
 
@@ -27,7 +27,7 @@ func (h *CustomerHandler) CreateCustomer(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
 	ctx := c.Request().Context()
-	resp, err := h.customerService.CreateCustomer(ctx, req)
+	resp, err := h.CustomerController.CreateCustomer(ctx, req)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}

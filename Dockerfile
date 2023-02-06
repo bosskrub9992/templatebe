@@ -1,4 +1,4 @@
-FROM golang:1.19-alpine as builder
+FROM golang:1.20-alpine as builder
 
 WORKDIR /app
 
@@ -9,7 +9,8 @@ COPY go.sum ./
 RUN go mod download && go mod verify
 
 ADD cmd ./cmd
-ADD pkg ./pkg
+ADD lib ./lib
+ADD src ./src
 
 WORKDIR /app/cmd
 RUN go build -o /ms-service

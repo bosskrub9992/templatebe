@@ -1,13 +1,13 @@
-package postgresql
+package database
 
 import (
 	"database/sql"
 	"fmt"
-	"templatebe/pkg/config"
+	"templatebe/src/config"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-func NewSQLDB(cfg *config.Config) (*sql.DB, error) {
+func NewPostgreSQLDB(cfg *config.Config) (*sql.DB, error) {
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		cfg.Database.Host,
 		cfg.Database.Port,

@@ -1,8 +1,8 @@
-package log
+package loggers
 
 import (
 	"os"
-	"templatebe/pkg/config"
+	"templatebe/src/config"
 	"time"
 
 	"github.com/rs/zerolog"

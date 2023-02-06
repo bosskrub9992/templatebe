@@ -1,35 +1,37 @@
 package main
 
 import (
-	"templatebe/pkg/api"
-	v1 "templatebe/pkg/api/v1"
-	"templatebe/pkg/config"
-	"templatebe/pkg/infrastructure/log"
-	"templatebe/pkg/infrastructure/postgresql"
-	"templatebe/pkg/infrastructure/sqlcrepository"
-	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
-	"templatebe/pkg/router"
-	"templatebe/pkg/service"
+	"templatebe/lib/database"
+	"templatebe/lib/loggers"
+	"templatebe/lib/validators"
+	v1 "templatebe/src/api/v1"
+	"templatebe/src/config"
+	service "templatebe/src/controller"
+	"templatebe/src/repository/sqlcrepository"
+	"templatebe/src/repository/sqlcrepository/sqlc"
+	"templatebe/src/router"
 
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
 	cfg := config.New()
-	sqlDB, err := postgresql.NewSQLDB(cfg)
+	sqlDB, err := database.NewPostgreSQLDB(cfg)
 	if err != nil {
 		panic(err)
 	}
 	defer sqlDB.Close()
 	db := sqlc.New(sqlDB)
 	customerRepo := sqlcrepository.NewSQLCCustomerRepository(db)
-	logger := log.NewZerolog(cfg)
-	customerService := service.NewCustomerService(logger, customerRepo)
-	customerHandler := v1.NewCustomerHandler(customerService)
+	logger := loggers.NewZerolog(cfg)
+	CustomerController := service.NewCustomerController(logger, customerRepo)
+	customerHandler := v1.NewCustomerHandler(CustomerController)
 
 	e := echo.New()
 	router.RegisterRoute(e, customerHandler)
-	e.Validator = api.NewRequestValidator()
+	e.Validator = validators.NewRequestValidator()
 
-	e.Logger.Fatal(e.Start(cfg.Server.Port))
+	if err := e.Start(cfg.Server.Port); err != nil {
+		logger.Fatal().Err(err).Send()
+	}
 }

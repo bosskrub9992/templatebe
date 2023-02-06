@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"templatebe/pkg/domain"
-	"templatebe/pkg/model"
+	"templatebe/src/domain"
+	"templatebe/src/model"
 
 	"github.com/rs/zerolog"
 )
@@ -12,19 +12,19 @@ type CustomerRepository interface {
 	Create(ctx context.Context, customer domain.Customer) (int64, error)
 }
 
-type CustomerService struct {
+type CustomerController struct {
 	logger             *zerolog.Logger
 	customerRepository CustomerRepository
 }
 
-func NewCustomerService(logger *zerolog.Logger, customerRepo CustomerRepository) *CustomerService {
-	return &CustomerService{
+func NewCustomerController(logger *zerolog.Logger, customerRepo CustomerRepository) *CustomerController {
+	return &CustomerController{
 		logger:             logger,
 		customerRepository: customerRepo,
 	}
 }
 
-func (s *CustomerService) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
+func (s *CustomerController) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
 	s.logger.Info().Interface("req", req).Msg("CreateCustomer")
 
 	customer := domain.Customer{

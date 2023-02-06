@@ -2,8 +2,8 @@ package sqlcrepository
 
 import (
 	"context"
-	"templatebe/pkg/domain"
-	"templatebe/pkg/infrastructure/sqlcrepository/sqlc"
+	"templatebe/src/domain"
+	"templatebe/src/repository/sqlcrepository/sqlc"
 )
 
 type SQLCCustomerRepository struct {
