@@ -64,7 +64,7 @@
 ### Design pattern
     - Clean architecture
 
-### API Convention
+### API convention
     - RESTful API
     - route name: hyphen case
     - json body: camelCase (smaller size than snake case)
@@ -77,7 +77,7 @@
     - enum: lower + snake case
     - time: ISO8601 in UTC
 
-### Application Convention
-    - folder name: don't use camel and snake case. It should be short and clearly and it should not duplicate with the variable name that is tend to be used in application (Go Convention)
+### Application convention
+    - folder name: don't use camel and snake case. It should be short and clearly and it should not duplicate with the variable name that is tend to be used in application (Go convention)
     - unique name such as "productId" should be "productID"
     - https://github.com/uber-go/guide/blob/master/style.md
