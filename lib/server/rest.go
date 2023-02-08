@@ -18,11 +18,7 @@ type RESTServer struct {
 	Handler *v1.Handler
 }
 
-func NewRESTServer(
-	config *config.Config,
-	handler *v1.Handler,
-	logger *zerolog.Logger,
-) *RESTServer {
+func NewRESTServer(config *config.Config, handler *v1.Handler, logger *zerolog.Logger) *RESTServer {
 
 	e := echo.New()
 
