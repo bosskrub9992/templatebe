@@ -57,11 +57,11 @@
         - api: contains handler that is used for parsing request and return response
         - controller: contains business logics and repository interfaces
         - repository: contains structs that implement interfaces that is needed by controller 
-            *api will only send/receive data to controller in model format.
-            *controller will only send/receive data to repository in domain format.
+
+    *api will only send/receive data to controller in model format.
+    *controller will only send/receive data to repository in domain format.
 
 ### Design pattern
-
     - Clean architecture
 
 ### API Convention
@@ -76,3 +76,8 @@
     - table name: lower + snake case, in plural
     - enum: lower + snake case
     - time: ISO8601 in UTC
+
+### Application Convention
+    - folder name: don't use camel and snake case. It should be short and clearly and it should not duplicate with the variable name that is tend to be used in application (Go Convention)
+    - unique name such as "productId" should be "productID"
+    - https://github.com/uber-go/guide/blob/master/style.md
