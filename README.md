@@ -45,3 +45,34 @@
     docker build -t serve .
     docker run serve
 ```
+
+### Layout
+    - cmd: (command) contains multiple main.go file
+    - config: contains config file
+    - lib: (library) contains packages used in package src but are rarely changed
+    - src: contains packages that is usually changed
+        - model: contains request and response struct of the api
+        - domain: contains database struct
+        - router: manage route name 
+        - api: contains handler that is used for parsing request and return response
+        - controller: contains business logics and repository interfaces
+        - repository: contains structs that implement interfaces that is needed by controller 
+            *api will only send/receive data to controller in model format.
+            *controller will only send/receive data to repository in domain format.
+
+### Design pattern
+
+    - Clean architecture
+
+### API Convention
+    - RESTful API
+    - route name: hyphen case
+    - json body: camelCase (smaller size than snake case)
+    - query param: camelCase (smaller size than snake case)
+    - path param: camelCase (smaller size than snake case)
+    - time: ISO8601 in UTC
+
+### Database convention
+    - table name: lower + snake case, in plural
+    - enum: lower + snake case
+    - time: ISO8601 in UTC
