@@ -9,22 +9,22 @@ COPY go.sum ./
 RUN go mod download && go mod verify
 
 ADD cmd ./cmd
+ADD config ./config
 ADD lib ./lib
 ADD src ./src
 
-WORKDIR /app/cmd
-RUN go build -o /ms-service
+RUN go build ./cmd/serve
 
 FROM alpine:3.17
 
-COPY --from=builder /ms-service .
+COPY --from=builder /app ./app
 
-# #Set default timezone
-# RUN apk add --no-cache tzdata
-# ENV TZ Asia/Bangkok
-# RUN ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
-# RUN echo "Asia/Bangkok" > /etc/timezone
+# # #Set default timezone
+# # RUN apk add --no-cache tzdata
+# # ENV TZ Asia/Bangkok
+# # RUN ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
+# # RUN echo "Asia/Bangkok" > /etc/timezone
 
 EXPOSE 8080
 
-CMD [ "/ms-service" ]
+CMD [ "./app/serve" ]
