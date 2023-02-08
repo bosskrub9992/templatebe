@@ -2,7 +2,8 @@
 
 ### Prerequisite
 
-    - golang 1.20
+    - golang 1.20 or newer
+    - Docker
     - wire
 
 ### Run program
