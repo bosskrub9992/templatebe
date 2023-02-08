@@ -1,4 +1,4 @@
-package service
+package controller
 
 import (
 	"context"
@@ -24,17 +24,15 @@ func NewCustomerController(logger *zerolog.Logger, customerRepo CustomerReposito
 	}
 }
 
-func (s *CustomerController) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
-	s.logger.Info().Interface("req", req).Msg("CreateCustomer")
-
+func (con *CustomerController) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
 	customer := domain.Customer{
 		ID:   req.ID,
 		Name: req.Name,
 	}
 
-	customerID, err := s.customerRepository.Create(ctx, customer)
+	customerID, err := con.customerRepository.Create(ctx, customer)
 	if err != nil {
-		s.logger.Error().Err(err).Send()
+		con.logger.Err(err).Send()
 		return nil, err
 	}
 

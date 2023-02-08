@@ -10,3 +10,7 @@ database:
 logger:
   globalMinLevel: "debug"
   json: "false"
+error:
+  0: "unknown error"
+  1: "bind error"
+  2: "validate error"

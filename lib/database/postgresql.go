@@ -4,10 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	"templatebe/src/config"
+
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/rs/zerolog"
 )
 
-func NewPostgreSQLDB(cfg *config.Config) (*sql.DB, error) {
+func NewPostgreSQLDB(cfg *config.Config, logger *zerolog.Logger) (*sql.DB, func(), error) {
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		cfg.Database.Host,
 		cfg.Database.Port,
@@ -18,7 +20,12 @@ func NewPostgreSQLDB(cfg *config.Config) (*sql.DB, error) {
 	)
 	sqlDB, err := sql.Open("pgx", dsn)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return sqlDB, nil
+	cleanUp := func() {
+		if err := sqlDB.Close(); err != nil {
+			logger.Err(err).Send()
+		}
+	}
+	return sqlDB, cleanUp, nil
 }

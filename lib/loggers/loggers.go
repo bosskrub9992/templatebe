@@ -9,7 +9,6 @@ import (
 )
 
 func NewZerolog(cfg *config.Config) *zerolog.Logger {
-
 	logger := zerolog.New(os.Stderr)
 	if !cfg.Logger.JSON {
 		logger = zerolog.New(zerolog.ConsoleWriter{
@@ -17,7 +16,6 @@ func NewZerolog(cfg *config.Config) *zerolog.Logger {
 			TimeFormat: time.RFC3339,
 		})
 	}
-
 	switch cfg.Logger.GlobalMinLevel {
 	case "info":
 		logger = logger.Level(zerolog.InfoLevel)
@@ -38,8 +36,6 @@ func NewZerolog(cfg *config.Config) *zerolog.Logger {
 	default:
 		logger = logger.Level(zerolog.DebugLevel)
 	}
-
 	logger = logger.With().Timestamp().Caller().Logger()
-
 	return &logger
 }

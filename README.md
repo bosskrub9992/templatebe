@@ -14,6 +14,4 @@ Generating sqlc by command prompt
     docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate
 ```
 
-todo
-- add wire
-- add custom error struct
+// TODO: make dockerfile work

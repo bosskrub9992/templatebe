@@ -7,27 +7,21 @@ import (
 )
 
 type Config struct {
-	Server   Server
-	Database Database
-	Logger   Logger
-}
-
-type Server struct {
-	Port string
-}
-
-type Database struct {
-	Port     string
-	Host     string
-	DBName   string
-	Username string
-	Password string
-	SSLmode  string
-}
-
-type Logger struct {
-	GlobalMinLevel string
-	JSON           bool
+	Server struct {
+		Port string
+	}
+	Database struct {
+		Port     string
+		Host     string
+		DBName   string
+		Username string
+		Password string
+		SSLmode  string
+	}
+	Logger struct {
+		GlobalMinLevel string
+		JSON           bool
+	}
 }
 
 func New() *Config {
@@ -36,6 +30,7 @@ func New() *Config {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath("./config")
+	viper.AddConfigPath("/app/config")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	if err := viper.ReadInConfig(); err != nil {

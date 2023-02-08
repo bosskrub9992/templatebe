@@ -1,13 +1,10 @@
 package router
 
-import (
-	v1 "templatebe/src/api/v1"
+import "templatebe/lib/server"
 
-	"github.com/labstack/echo/v4"
-)
+func RegisterRoute(restServer *server.RESTServer) {
+	v1Group := restServer.E.Group("/api/v1")
 
-func RegisterRoute(e *echo.Echo, customerHandler *v1.CustomerHandler) {
-	v1Group := e.Group("/v1")
-
-	v1Group.POST("/create-customer", customerHandler.CreateCustomer)
+	v1Group.GET("/health", restServer.Handler.GetHealth)
+	v1Group.POST("/customers", restServer.Handler.CreateCustomer)
 }
