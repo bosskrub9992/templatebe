@@ -25,11 +25,13 @@ func NewRESTServer(
 ) *RESTServer {
 
 	e := echo.New()
-	e.Validator = validators.NewRequestValidator()
+
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 	e.Use(loggers.EchoMiddleware(logger))
+
+	e.Validator = validators.NewRequestValidator()
 
 	return &RESTServer{
 		E:       e,
