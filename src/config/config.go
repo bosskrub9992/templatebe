@@ -29,8 +29,9 @@ func New() *Config {
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath("./config")
-	viper.AddConfigPath("/app/config")
+	viper.AddConfigPath("./config")     // local
+	viper.AddConfigPath("../../config") // testing
+	viper.AddConfigPath("/app/config")  // docker
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	if err := viper.ReadInConfig(); err != nil {

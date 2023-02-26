@@ -1,4 +1,4 @@
-# templatebe
+# templatebe (TODO: add gomock, testify/assert)
 
 ### Prerequisite
 
@@ -82,3 +82,10 @@
     - folder name: don't use camel and snake case. It should be short and clearly and it should not duplicate with the variable name that is tend to be used in application (Go convention)
     - unique name such as "productId" should be "productID"
     - https://github.com/uber-go/guide/blob/master/style.md
+
+### Testing
+
+when interface in controller has changed, run
+```sh
+    mockgen -source=./src/controller/customer.go -destination=./src/repository/mockrepository/customer.go -package=mockrepository
+```
