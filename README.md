@@ -1,4 +1,4 @@
-# templatebe (TODO: add gomock, testify/assert)
+# templatebe
 
 ### Prerequisite
 
