@@ -10,23 +10,35 @@ A monorepo built using Golang and adhering to Clean Architecture principles. Thi
 
 ### Getting Started (Deployment approach)
 
-1. start docker compose
+1. init go module working space, run (only 1st time)
+```sh
+    go work init
+    go work use ./corelib
+    go work use -r ./service/*
+```
+
+2. sync dependency between module, run
+```sh
+    go work sync
+```
+
+3. start docker compose
 ```sh
     cd ./docker
     docker-compose up --build -d
 ```
 
-2. drop and create database, run
+4. drop and create database, run
 ```sh
     docker exec -i postgres psql -U postgres -c "drop database if exists postgres_template_be" && \
     docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
 ```
 
-3. migrate database, execute sql file in all service
+5. migrate database by executing the sql files in repository in all services
 
 ### Getting Started (Manual approach)
 
-1. init go module working space, run (run only 1st time)
+1. init go module working space, run (only 1st time)
 ```sh
     go work init
     go work use ./corelib
@@ -49,7 +61,7 @@ A monorepo built using Golang and adhering to Clean Architecture principles. Thi
     docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
 ```
 
-5. migrate database, execute sql file in all service
+5. migrate database by executing the sql files in repository in all services
 
 
 6. start service
