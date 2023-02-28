@@ -15,11 +15,11 @@ import (
 
 type RESTServer struct {
 	e       *echo.Echo
-	config  *config.RESTServer
+	config  *config.RESTServerConfig
 	handler *v1.Handler
 }
 
-func NewRESTServer(config *config.RESTServer, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
+func NewRESTServer(config *config.RESTServerConfig, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
 	e := echo.New()
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Recover())

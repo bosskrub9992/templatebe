@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func NewDBConfig() *database.PostgresConfig {
+func NewPostgresConfig() *database.PostgresConfig {
 	return &database.PostgresConfig{
 		Host:     viper.GetString("database.host"),
 		Port:     viper.GetString("database.port"),

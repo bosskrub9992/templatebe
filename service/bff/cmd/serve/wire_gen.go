@@ -21,10 +21,10 @@ import (
 // Injectors from wire.go:
 
 func InitializeRestServer() (*server.RESTServer, func(), error) {
-	restServer := config.NewRESTServerConfig()
+	restServerConfig := config.NewRESTServerConfig()
 	zerologConfig := config.NewLoggerConfig()
 	logger := loggers.NewZerolog(zerologConfig)
-	postgresConfig := config.NewDBConfig()
+	postgresConfig := config.NewPostgresConfig()
 	db, err := database.NewPostgres(postgresConfig)
 	if err != nil {
 		return nil, nil, err
@@ -34,8 +34,8 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 	customerController := controller.NewCustomerController(logger, sqlcCustomerRepository)
 	healthController := controller.NewHealthController()
 	handler := v1.NewHandler(customerController, healthController)
-	serverRESTServer := server.NewRESTServer(restServer, logger, handler)
-	return serverRESTServer, func() {
+	restServer := server.NewRESTServer(restServerConfig, logger, handler)
+	return restServer, func() {
 	}, nil
 }
 

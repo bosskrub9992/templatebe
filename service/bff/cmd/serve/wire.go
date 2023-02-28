@@ -36,7 +36,7 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 		repositorySet,
 		sqlc.New,
 		database.NewPostgres,
-		config.NewDBConfig,
+		config.NewPostgresConfig,
 		loggers.NewZerolog,
 		config.NewLoggerConfig,
 

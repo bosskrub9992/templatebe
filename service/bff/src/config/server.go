@@ -4,12 +4,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-type RESTServer struct {
+type RESTServerConfig struct {
 	Port string
 }
 
-func NewRESTServerConfig() *RESTServer {
-	return &RESTServer{
+func NewRESTServerConfig() *RESTServerConfig {
+	return &RESTServerConfig{
 		Port: viper.GetString("server.port"),
 	}
 }
