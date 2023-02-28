@@ -13,7 +13,7 @@ A monorepo built using Golang and adhering to Clean Architecture principles. Thi
 1. start docker compose
 ```sh
     cd ./docker
-    docker-compose up --build
+    docker-compose up --build -d
 ```
 
 2. drop and create database, run
