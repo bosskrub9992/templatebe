@@ -72,22 +72,27 @@ a monorepo template for Golang
 ```
 
 ### Layout
-    - cmd: (command) contains multiple main.go file
-    - config: contains config file
-    - lib: (library) contains packages used in package src but are rarely changed
-    - src: contains packages that is usually changed
-        - model: contains request and response struct of the api
-        - domain: contains database struct
-        - router: manage route name 
-        - api: contains handler that is used for parsing request and return response
-        - controller: contains business logics and repository interfaces
-        - repository: contains structs that implement interfaces that is needed by controller 
+    - corelib: (core library) contains packages that are rarely changed and can be used across repos in service folder
+    - docker: contains docker compose file
+    - service: contains all repos of microservices
+        - bff: (backend for frontend) 
+            - cmd: (command) contains multiple main.go file
+            - config: contains config.yaml file
+            - src: contains packages that is usually changed
+                - api: contains handler that is used for parsing request and return response
+                - config: contains config struct that read from config.yaml
+                - controller: contains business logics and repository interfaces
+                - domain: contains database struct
+                - model: contains request and response struct of the api
+                - repository: contains structs that implement interfaces that is needed by controller 
+                - router: manage route names and middlewares
 
-    *api will only send/receive data to controller in model format.
-    *controller will only send/receive data to repository in domain format.
+        *api will only send/receive data to controller in struct in the model package to eliminate dependency.
+        *controller will only send/receive data to repository in struct in the domain package to eliminate dependency.
 
 ### Design pattern
     - Clean architecture
+    - Hexagonal architecture (port & adapter)
 
 ### API convention
     - RESTful API
