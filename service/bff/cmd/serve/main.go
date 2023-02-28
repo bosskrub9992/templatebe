@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/bosskrub9992/templatebe/service/bff/src/router"
 	"net/http"
 	"os"
 	"os/signal"
@@ -15,8 +14,6 @@ func main() {
 		panic(err)
 	}
 	defer closeRestServer()
-
-	router.RegisterRoute(restServer)
 
 	go func() {
 		if err := restServer.Serve(); err != nil && err != http.ErrServerClosed {

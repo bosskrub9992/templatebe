@@ -3,7 +3,7 @@ module github.com/bosskrub9992/templatebe/service/bff
 go 1.20
 
 require (
-	github.com/bosskrub9992/templatebe/corelib v0.0.0-20230228020340-6312e918ed33
+	github.com/bosskrub9992/templatebe/corelib v0.0.0-20230228060349-e8adf02ddc3b
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/labstack/echo/v4 v4.10.2

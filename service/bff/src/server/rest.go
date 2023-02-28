@@ -14,33 +14,36 @@ import (
 )
 
 type RESTServer struct {
-	E       *echo.Echo
-	Handler *v1.Handler
-	config  *config.Server
+	e       *echo.Echo
+	config  *config.RESTServer
+	handler *v1.Handler
 }
 
-func NewRESTServer(config *config.Server, handler *v1.Handler, logger *zerolog.Logger) *RESTServer {
-
+func NewRESTServer(config *config.RESTServer, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
 	e := echo.New()
-
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 	e.Use(loggers.EchoMiddlewareZerolog(logger))
-
 	e.Validator = validators.NewRequestValidator()
-
 	return &RESTServer{
-		E:       e,
+		e:       e,
 		config:  config,
-		Handler: handler,
+		handler: handler,
 	}
 }
 
+func (r *RESTServer) RegisterRoute() error {
+	v1Group := r.e.Group("/api/v1")
+	v1Group.GET("/health", r.handler.GetHealth)
+	v1Group.POST("/customers", r.handler.CreateCustomer)
+	return nil
+}
+
 func (r *RESTServer) Serve() error {
-	return r.E.Start(r.config.Port)
+	return r.e.Start(r.config.Port)
 }
 
 func (r *RESTServer) Shutdown(ctx context.Context) error {
-	return r.E.Shutdown(ctx)
+	return r.e.Shutdown(ctx)
 }

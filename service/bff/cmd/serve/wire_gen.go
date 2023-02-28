@@ -9,19 +9,19 @@ package main
 import (
 	"github.com/bosskrub9992/templatebe/corelib/database"
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
-	"github.com/bosskrub9992/templatebe/corelib/server"
 	"github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
 	"github.com/bosskrub9992/templatebe/service/bff/src/config"
 	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository/sqlc"
+	"github.com/bosskrub9992/templatebe/service/bff/src/server"
 	"github.com/google/wire"
 )
 
 // Injectors from wire.go:
 
 func InitializeRestServer() (*server.RESTServer, func(), error) {
-	configServer := config.NewServerConfig()
+	restServer := config.NewRESTServerConfig()
 	zerologConfig := config.NewLoggerConfig()
 	logger := loggers.NewZerolog(zerologConfig)
 	postgresConfig := config.NewDBConfig()
@@ -34,8 +34,8 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 	customerController := controller.NewCustomerController(logger, sqlcCustomerRepository)
 	healthController := controller.NewHealthController()
 	handler := v1.NewHandler(customerController, healthController)
-	restServer := server.NewRESTServer(configServer, handler, logger)
-	return restServer, func() {
+	serverRESTServer := server.NewRESTServer(restServer, logger, handler)
+	return serverRESTServer, func() {
 	}, nil
 }
 

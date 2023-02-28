@@ -5,6 +5,7 @@ package main
 
 import (
 	"database/sql"
+
 	"github.com/bosskrub9992/templatebe/corelib/database"
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
 	v1 "github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
@@ -12,7 +13,7 @@ import (
 	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository/sqlc"
-	"github.com/bosskrub9992/templatebe/corelib/server"
+	"github.com/bosskrub9992/templatebe/service/bff/src/server"
 
 	"github.com/google/wire"
 )
@@ -29,7 +30,7 @@ var repositorySet = wire.NewSet(
 func InitializeRestServer() (*server.RESTServer, func(), error) {
 	wire.Build(
 		server.NewRESTServer,
-		config.NewServerConfig,
+		config.NewRESTServerConfig,
 		v1.NewHandler,
 		controllerSet,
 		repositorySet,

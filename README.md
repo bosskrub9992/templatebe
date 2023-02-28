@@ -10,7 +10,7 @@ a monorepo template for Golang
     - wire
 
 ### Run program (Deployment approach)
-
+<!-- TODO: finish readme this section -->
 ```sh
     docker-compose up --build
 ```
@@ -29,7 +29,23 @@ a monorepo template for Golang
     go work sync
 ```
 
-3. start service
+3. start postgres, run
+
+    ```sh
+    docker run --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres:15.2-alpine
+    ```
+
+4. drop and create database, run
+
+    ```sh
+    docker exec -i postgres psql -U postgres -c "drop database if exists postgres_template_be" && \
+    docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
+    ```
+
+5. migrate database, execute sql file in all service
+
+
+6. start service
 ```sh
     cd ./service/bff
     go run ./cmd/serve
@@ -69,6 +85,13 @@ a monorepo template for Golang
     cd ./service/bff
     docker build -t serve .
     docker run serve
+```
+
+### How to update dependency of corelib
+
+run
+```sh
+    go mod tidy
 ```
 
 ### Layout
