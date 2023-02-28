@@ -1,6 +1,6 @@
 # templatebe
 
-A monorepo built using Golang and adhering to Clean Architecture principles. This template is designed to help developers create a scalable and maintainable project with multiple service with ease. Here is the benefits to use monorepo https://monorepo.tools/. Our template also includes a core library for sharing dependencies between services, making it easier to manage, refactor and maintain the project while not breaking the microservice design pattern.
+A monorepo built using Golang and adhering to Clean Architecture principles. This template is designed to help developers create a scalable and maintainable project with multiple service with ease. Here is the benefits to use monorepo https://monorepo.tools/. Our template also includes a core library for sharing dependencies between services, making it easier to manage, refactor and maintain the project while not breaking the microservice design pattern. We suggest using Golang module working space https://go.dev/doc/tutorial/workspaces.
 
 ### Prerequisite
 
