@@ -1,22 +1,35 @@
 # github.com/bosskrub9992/templatebe
 
-monorepo template that consists of backend for frontend (bff in service) 
+a monorepo template for Golang
 <!-- TODO: finish docker compose -->
 
 ### Prerequisite
 
-    - golang 1.20 or newer
+    - Golang 1.20 or newer
     - Docker
     - wire
 
-### Deployment Approach
+### Run program (Deployment approach)
 
 ```sh
     docker-compose up --build
 ```
 
-### Run program
+### Run program (Manual approach)
 
+1. init go module working space, run (run only 1st time)
+```sh
+    go work init
+    go work use ./corelib
+    go work use -r ./service/*
+```
+
+2. sync dependency between module, run
+```sh
+    go work sync
+```
+
+3. start service
 ```sh
     cd ./service/bff
     go run ./cmd/serve

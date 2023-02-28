@@ -1,0 +1,9 @@
+services:
+  bff:
+    image: imageName
+
+  db:
+    image: imageName
+
+  authentication:
+    image: imageName
