@@ -15,6 +15,8 @@ func main() {
 	}
 	defer closeRestServer()
 
+	restServer.RegisterRoute()
+
 	go func() {
 		if err := restServer.Serve(); err != nil && err != http.ErrServerClosed {
 			panic(err)

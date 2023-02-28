@@ -21,23 +21,19 @@ type RESTServer struct {
 
 func NewRESTServer(config *config.RESTServerConfig, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
 	e := echo.New()
+
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 	e.Use(loggers.EchoMiddlewareZerolog(logger))
+
 	e.Validator = validators.NewRequestValidator()
+
 	return &RESTServer{
 		e:       e,
 		config:  config,
 		handler: handler,
 	}
-}
-
-func (r *RESTServer) RegisterRoute() error {
-	v1Group := r.e.Group("/api/v1")
-	v1Group.GET("/health", r.handler.GetHealth)
-	v1Group.POST("/customers", r.handler.CreateCustomer)
-	return nil
 }
 
 func (r *RESTServer) Serve() error {
