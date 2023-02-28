@@ -9,13 +9,23 @@ a monorepo template for Golang
     - Docker
     - wire
 
-### Run program (Deployment approach)
-<!-- TODO: finish readme this section -->
+### Getting Started (Deployment approach)
+
+1. start docker compose
 ```sh
+    cd ./docker
     docker-compose up --build
 ```
 
-### Run program (Manual approach)
+2. drop and create database, run
+```sh
+    docker exec -i postgres psql -U postgres -c "drop database if exists postgres_template_be" && \
+    docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
+```
+
+3. migrate database, execute sql file in all service
+
+### Getting Started (Manual approach)
 
 1. init go module working space, run (run only 1st time)
 ```sh
@@ -30,17 +40,15 @@ a monorepo template for Golang
 ```
 
 3. start postgres, run
-
-    ```sh
+```sh
     docker run --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres:15.2-alpine
-    ```
+```
 
 4. drop and create database, run
-
-    ```sh
+```sh
     docker exec -i postgres psql -U postgres -c "drop database if exists postgres_template_be" && \
     docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
-    ```
+```
 
 5. migrate database, execute sql file in all service
 
