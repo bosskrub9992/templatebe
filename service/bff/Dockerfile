@@ -10,7 +10,6 @@ RUN go mod download && go mod verify
 
 ADD cmd ./cmd
 ADD config ./config
-ADD lib ./lib
 ADD src ./src
 
 RUN go build ./cmd/serve
