@@ -1,7 +1,6 @@
-# github.com/bosskrub9992/templatebe
+# templatebe
 
-a monorepo template for Golang
-<!-- TODO: finish docker compose -->
+A monorepo built using Golang and adhering to Clean Architecture principles. This template is designed to help developers create scalable and maintainable projects with ease. Our template includes a core library for sharing dependencies between services, making it easier to manage, refactor and maintain the project.
 
 ### Prerequisite
 
