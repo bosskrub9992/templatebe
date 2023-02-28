@@ -4,8 +4,10 @@ services:
     build:
       context: ../service/bff
       dockerfile: Dockerfile
+    environment:
+      DATABASE_HOST: postgres
     ports:
-      - 8000:8000
+      - 8080:8080
     networks:
       - backend
     depends_on:

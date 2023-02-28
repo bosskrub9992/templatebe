@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+
 	"github.com/bosskrub9992/templatebe/service/bff/src/domain"
 	"github.com/bosskrub9992/templatebe/service/bff/src/model"
 
@@ -26,7 +27,6 @@ func NewCustomerController(logger *zerolog.Logger, customerRepo CustomerReposito
 
 func (con *CustomerController) CreateCustomer(ctx context.Context, req model.CreateCustomerRequest) (*model.CreateCustomerResponse, error) {
 	customer := domain.Customer{
-		ID:   req.ID,
 		Name: req.Name,
 	}
 

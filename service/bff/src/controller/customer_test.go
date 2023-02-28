@@ -42,7 +42,6 @@ func TestCustomerController_CreateCustomer(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				req: model.CreateCustomerRequest{
-					ID:   1,
 					Name: "Boss",
 				},
 			},

@@ -1,8 +1,7 @@
 package model
 
 type CreateCustomerRequest struct {
-	ID   int64  `json:"id" validate:"required"`
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required"`
 }
 
 type CreateCustomerResponse struct {
