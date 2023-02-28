@@ -1,4 +1,7 @@
-# github.com/bosskrub9992/templatebe/service/bff
+# github.com/bosskrub9992/templatebe
+
+monorepo template that consists of backend for frontend (bff in service) 
+<!-- TODO: finish docker compose -->
 
 ### Prerequisite
 
@@ -6,23 +9,30 @@
     - Docker
     - wire
 
+### Deployment Approach
+
+```sh
+    docker-compose up --build
+```
+
 ### Run program
 
 ```sh
+    cd ./service/bff
     go run ./cmd/serve
 ```
 
 ### Generate migration file
 
 ```sh
-    cd ./src/infrastructure/sqlcrepository/migration
+    cd ./service/bff/src/infrastructure/sqlcrepository/migration
     goose create <file_name> sql
 ```
 
 ### Generating sqlc by command prompt
 
 ```sh
-    cd ./src/infrastructure/sqlcrepository
+    cd ./service/bff/src/infrastructure/sqlcrepository
     docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate
 ```
 
@@ -36,13 +46,14 @@
 
 2. run wire
 ```sh
-    cd ./cmd/serve
+    cd ./service/bff/cmd/serve
     wire
 ```
 
 ### Docker
 
 ```sh
+    cd ./service/bff
     docker build -t serve .
     docker run serve
 ```
