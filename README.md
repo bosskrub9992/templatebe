@@ -106,7 +106,7 @@ run
     - corelib: (core library) contains packages that are rarely changed and can be used across repos in service folder
     - docker: contains docker compose file
     - service: contains all repos of microservices
-        - bff: (backend for frontend) 
+        - bff: (backend for frontend service) 
             - cmd: (command) contains multiple main.go file
             - config: contains config.yaml file
             - src: contains packages that is usually changed
@@ -116,10 +116,10 @@ run
                 - domain: contains database struct
                 - model: contains request and response struct of the api
                 - repository: contains structs that implement interfaces that is needed by controller 
-                - router: manage route names and middlewares
+                - server: contains server struct, manage server middleware and route names here
 
-        *api will only send/receive data to controller in struct in the model package to eliminate dependency.
-        *controller will only send/receive data to repository in struct in the domain package to eliminate dependency.
+    *api will only send/receive data to controller in struct in the model package to eliminate dependency.
+    *controller will only send/receive data to repository in struct in the domain package to eliminate dependency.
 
 ### Design pattern
     - Clean architecture
