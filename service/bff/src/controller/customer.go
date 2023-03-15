@@ -3,8 +3,8 @@ package controller
 import (
 	"context"
 
-	"github.com/bosskrub9992/templatebe/service/bff/src/domain"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model"
+	"github.com/bosskrub9992/templatebe/service/bff/src/model/domain"
+	"github.com/bosskrub9992/templatebe/service/bff/src/model/model"
 
 	"github.com/rs/zerolog"
 )

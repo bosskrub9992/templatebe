@@ -7,7 +7,7 @@ import (
 
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
 	"github.com/bosskrub9992/templatebe/service/bff/src/config"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model"
+	"github.com/bosskrub9992/templatebe/service/bff/src/model/model"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/mockrepository"
 
 	"github.com/golang/mock/gomock"

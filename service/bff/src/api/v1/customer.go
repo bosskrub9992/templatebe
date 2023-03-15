@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bosskrub9992/templatebe/corelib/errs"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model"
+	"github.com/bosskrub9992/templatebe/service/bff/src/model/model"
 
 	"github.com/labstack/echo/v4"
 )
