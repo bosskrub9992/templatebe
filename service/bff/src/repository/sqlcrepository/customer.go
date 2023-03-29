@@ -2,7 +2,7 @@ package sqlcrepository
 
 import (
 	"context"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model/domain"
+	"github.com/bosskrub9992/templatebe/service/bff/src/domain"
 	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository/sqlc"
 )
 

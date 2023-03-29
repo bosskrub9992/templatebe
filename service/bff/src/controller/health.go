@@ -2,7 +2,7 @@ package controller
 
 import (
 	"context"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model/model"
+	"github.com/bosskrub9992/templatebe/service/bff/src/model"
 	"time"
 )
 

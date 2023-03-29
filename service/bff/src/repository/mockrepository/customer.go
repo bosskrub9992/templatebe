@@ -7,7 +7,7 @@ package mockrepository
 import (
 	context "context"
 	reflect "reflect"
-	domain "github.com/bosskrub9992/templatebe/service/bff/src/model/domain"
+	domain "github.com/bosskrub9992/templatebe/service/bff/src/domain"
 
 	gomock "github.com/golang/mock/gomock"
 )

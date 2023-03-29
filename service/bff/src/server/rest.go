@@ -43,10 +43,3 @@ func (r *RESTServer) Serve() error {
 func (r *RESTServer) Shutdown(ctx context.Context) error {
 	return r.e.Shutdown(ctx)
 }
-
-func (r *RESTServer) RegisterRoute() {
-	v1Group := r.e.Group("/api/v1")
-
-	v1Group.GET("/health", r.handler.GetHealth)
-	v1Group.POST("/customers", r.handler.CreateCustomer)
-}
