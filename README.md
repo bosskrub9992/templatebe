@@ -73,15 +73,15 @@ A monorepo built using Golang and adhering to Clean Architecture principles. Thi
 ### Generate migration file
 
 ```sh
-    cd ./service/bff/src/infrastructure/sqlcrepository/migration
+    cd ./service/bff/migration
     goose create <file_name> sql
 ```
 
-### Generating sqlc by command prompt
+### Generating sqlc
 
 ```sh
-    cd ./service/bff/src/infrastructure/sqlcrepository
-    docker run --rm -v "%cd%:/src" -w /src kjconroy/sqlc generate
+    go install github.com/kyleconroy/sqlc/cmd/sqlc@latest
+    sqlc generate
 ```
 
 ### Inject Dependency
@@ -158,5 +158,6 @@ run
 
 when interface in controller has changed, run
 ```sh
-    mockgen -source=./src/controller/customer.go -destination=./src/repository/mockrepository/customer.go -package=mockrepository
+    cd ./service/bff
+    mockgen -source=./src/controller/customer.go -destination=./src/repository/mockrepo/customer.go -package=mockrepo
 ```

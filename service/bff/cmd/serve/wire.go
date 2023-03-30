@@ -11,8 +11,8 @@ import (
 	v1 "github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
 	"github.com/bosskrub9992/templatebe/service/bff/src/config"
 	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository/sqlc"
+	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo"
+	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo/sqlc"
 	"github.com/bosskrub9992/templatebe/service/bff/src/server"
 
 	"github.com/google/wire"
@@ -24,7 +24,7 @@ var controllerSet = wire.NewSet(
 )
 
 var repositorySet = wire.NewSet(
-	sqlcrepository.NewSQLCCustomerRepository,
+	sqlcrepo.NewSQLCCustomerRepository,
 )
 
 func InitializeRestServer() (*server.RESTServer, func(), error) {
@@ -40,7 +40,7 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 		loggers.NewZerolog,
 		config.NewLoggerConfig,
 
-		wire.Bind(new(controller.CustomerRepository), new(*sqlcrepository.SQLCCustomerRepository)),
+		wire.Bind(new(controller.CustomerRepository), new(*sqlcrepo.SQLCCustomerRepository)),
 		wire.Bind(new(sqlc.DBTX), new(*sql.DB)),
 	)
 	return nil, nil, nil

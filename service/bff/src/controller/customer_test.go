@@ -8,7 +8,7 @@ import (
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
 	"github.com/bosskrub9992/templatebe/service/bff/src/config"
 	"github.com/bosskrub9992/templatebe/service/bff/src/model"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/mockrepository"
+	"github.com/bosskrub9992/templatebe/service/bff/src/repository/mockrepo"
 
 	"github.com/golang/mock/gomock"
 )
@@ -19,7 +19,7 @@ func TestCustomerController_CreateCustomer(t *testing.T) {
 
 	zerologConfig := config.NewLoggerConfig()
 	logger := loggers.NewZerolog(zerologConfig)
-	mockCustomerRepo := mockrepository.NewMockCustomerRepository(mockCtrl)
+	mockCustomerRepo := mockrepo.NewMockCustomerRepository(mockCtrl)
 
 	type args struct {
 		ctx context.Context

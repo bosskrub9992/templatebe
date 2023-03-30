@@ -12,8 +12,8 @@ import (
 	"github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
 	"github.com/bosskrub9992/templatebe/service/bff/src/config"
 	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepository/sqlc"
+	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo"
+	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo/sqlc"
 	"github.com/bosskrub9992/templatebe/service/bff/src/server"
 	"github.com/google/wire"
 )
@@ -30,7 +30,7 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 		return nil, nil, err
 	}
 	queries := sqlc.New(db)
-	sqlcCustomerRepository := sqlcrepository.NewSQLCCustomerRepository(queries)
+	sqlcCustomerRepository := sqlcrepo.NewSQLCCustomerRepository(queries)
 	customerController := controller.NewCustomerController(logger, sqlcCustomerRepository)
 	healthController := controller.NewHealthController()
 	handler := v1.NewHandler(customerController, healthController)
@@ -43,4 +43,4 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 
 var controllerSet = wire.NewSet(controller.NewCustomerController, controller.NewHealthController)
 
-var repositorySet = wire.NewSet(sqlcrepository.NewSQLCCustomerRepository)
+var repositorySet = wire.NewSet(sqlcrepo.NewSQLCCustomerRepository)

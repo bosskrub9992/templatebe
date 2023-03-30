@@ -10,17 +10,24 @@ import (
 )
 
 func (h *Handler) CreateCustomer(c echo.Context) error {
-	req := model.CreateCustomerRequest{}
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, errs.NewBind(err))
+	request := model.CreateCustomerRequest{}
+
+	if err := c.Bind(&request); err != nil {
+		errorResp := errs.NewBind(err)
+		return c.JSON(errorResp.Status, errorResp)
 	}
-	if err := c.Validate(&req); err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, errs.NewValidate(err))
+
+	if err := c.Validate(&request); err != nil {
+		errorResp := errs.NewValidate(err)
+		return c.JSON(errorResp.Status, errorResp)
 	}
+
 	ctx := c.Request().Context()
-	resp, err := h.customerController.CreateCustomer(ctx, req)
+	response, err := h.customerController.CreateCustomer(ctx, request)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, errs.NewUnknown(err))
+		errorResp := errs.NewUnknown(err)
+		return c.JSON(errorResp.Status, errorResp)
 	}
-	return c.JSON(http.StatusCreated, resp)
+
+	return c.JSON(http.StatusCreated, response)
 }

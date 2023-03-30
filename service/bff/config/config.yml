@@ -9,7 +9,7 @@ database:
   sslmode: "disable"
 logger:
   globalMinLevel: "debug"
-  json: "false"
+  json: false
 error:
   0: "unknown error"
   1: "bind error"
