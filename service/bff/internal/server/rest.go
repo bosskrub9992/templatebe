@@ -5,8 +5,8 @@ import (
 
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
 	"github.com/bosskrub9992/templatebe/corelib/validators"
-	v1 "github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
-	"github.com/bosskrub9992/templatebe/service/bff/src/config"
+	v1 "github.com/bosskrub9992/templatebe/service/bff/internal/api/v1"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/config"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

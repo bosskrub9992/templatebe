@@ -1,9 +1,9 @@
 version: "2"
 sql:
   - engine: "postgresql"
-    queries: "../src/repository/sqlcrepo/sqlc/query.sql"
+    queries: "../internal/repository/sqlcrepo/sqlc/query.sql"
     schema: "../migration"
     gen:
       go:
         package: "sqlc"
-        out: "../src/repository/sqlcrepo/sqlc"
+        out: "../internal/repository/sqlcrepo/sqlc"

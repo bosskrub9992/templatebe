@@ -120,7 +120,7 @@ run
         - bff: (backend for frontend service) 
             - cmd: (command) contains multiple main.go file
             - config: contains config.yaml file
-            - src: contains packages that is usually changed
+            - internal: contains packages that is usually changed
                 - api: contains handler that is used for parsing request and return response
                 - config: contains config struct that read from config.yaml
                 - controller: contains business logics and repository interfaces
@@ -159,5 +159,5 @@ run
 when interface in controller has changed, run
 ```sh
     cd ./service/bff
-    mockgen -source=./src/controller/customer.go -destination=./src/repository/mockrepo/customer.go -package=mockrepo
+    mockgen -source=./internal/controller/customer.go -destination=./internal/repository/mockrepo/customer.go -package=mockrepo
 ```

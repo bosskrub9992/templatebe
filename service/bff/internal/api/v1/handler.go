@@ -1,6 +1,6 @@
 package v1
 
-import "github.com/bosskrub9992/templatebe/service/bff/src/controller"
+import "github.com/bosskrub9992/templatebe/service/bff/internal/controller"
 
 type Handler struct {
 	customerController *controller.CustomerController

@@ -9,12 +9,11 @@ package main
 import (
 	"github.com/bosskrub9992/templatebe/corelib/database"
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
-	"github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
-	"github.com/bosskrub9992/templatebe/service/bff/src/config"
-	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo/sqlc"
-	"github.com/bosskrub9992/templatebe/service/bff/src/server"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/api/v1"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/config"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/controller"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/repository/gormrepo"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/server"
 	"github.com/google/wire"
 )
 
@@ -29,9 +28,12 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	queries := sqlc.New(db)
-	sqlcCustomerRepository := sqlcrepo.NewSQLCCustomerRepository(queries)
-	customerController := controller.NewCustomerController(logger, sqlcCustomerRepository)
+	gormDB, err := database.NewGormDBPostgres(db)
+	if err != nil {
+		return nil, nil, err
+	}
+	customerRepo := gormrepo.NewCustomerRepo(gormDB)
+	customerController := controller.NewCustomerController(logger, customerRepo)
 	healthController := controller.NewHealthController()
 	handler := v1.NewHandler(customerController, healthController)
 	restServer := server.NewRESTServer(restServerConfig, logger, handler)
@@ -43,4 +45,4 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 
 var controllerSet = wire.NewSet(controller.NewCustomerController, controller.NewHealthController)
 
-var repositorySet = wire.NewSet(sqlcrepo.NewSQLCCustomerRepository)
+var repositorySet = wire.NewSet(gormrepo.NewCustomerRepo)

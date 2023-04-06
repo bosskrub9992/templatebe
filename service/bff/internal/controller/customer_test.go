@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
-	"github.com/bosskrub9992/templatebe/service/bff/src/config"
-	"github.com/bosskrub9992/templatebe/service/bff/src/model"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/mockrepo"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/config"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/model"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/repository/mockrepo"
 
 	"github.com/golang/mock/gomock"
 )

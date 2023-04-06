@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type PostgresConfig struct {
@@ -30,4 +32,14 @@ func NewPostgres(cfg *PostgresConfig) (*sql.DB, error) {
 		return nil, err
 	}
 	return sqlDB, nil
+}
+
+func NewGormDBPostgres(sqlDB *sql.DB) (*gorm.DB, error) {
+	gormDB, err := gorm.Open(postgres.New(postgres.Config{
+		Conn: sqlDB,
+	}), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+	return gormDB, nil
 }

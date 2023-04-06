@@ -3,8 +3,8 @@ package sqlcrepo
 import (
 	"context"
 
-	"github.com/bosskrub9992/templatebe/service/bff/src/domain"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo/sqlc"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/domain"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/repository/sqlcrepo/sqlc"
 )
 
 type SQLCCustomerRepository struct {

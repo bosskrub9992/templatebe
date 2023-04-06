@@ -1,19 +1,16 @@
-//go:build wireinject
+// go:build wireinject
 // +build wireinject
 
 package main
 
 import (
-	"database/sql"
-
 	"github.com/bosskrub9992/templatebe/corelib/database"
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
-	v1 "github.com/bosskrub9992/templatebe/service/bff/src/api/v1"
-	"github.com/bosskrub9992/templatebe/service/bff/src/config"
-	"github.com/bosskrub9992/templatebe/service/bff/src/controller"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo"
-	"github.com/bosskrub9992/templatebe/service/bff/src/repository/sqlcrepo/sqlc"
-	"github.com/bosskrub9992/templatebe/service/bff/src/server"
+	v1 "github.com/bosskrub9992/templatebe/service/bff/internal/api/v1"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/config"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/controller"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/repository/gormrepo"
+	"github.com/bosskrub9992/templatebe/service/bff/internal/server"
 
 	"github.com/google/wire"
 )
@@ -24,7 +21,7 @@ var controllerSet = wire.NewSet(
 )
 
 var repositorySet = wire.NewSet(
-	sqlcrepo.NewSQLCCustomerRepository,
+	gormrepo.NewCustomerRepo,
 )
 
 func InitializeRestServer() (*server.RESTServer, func(), error) {
@@ -34,14 +31,13 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 		v1.NewHandler,
 		controllerSet,
 		repositorySet,
-		sqlc.New,
+		database.NewGormDBPostgres,
 		database.NewPostgres,
 		config.NewPostgresConfig,
 		loggers.NewZerolog,
 		config.NewLoggerConfig,
 
-		wire.Bind(new(controller.CustomerRepository), new(*sqlcrepo.SQLCCustomerRepository)),
-		wire.Bind(new(sqlc.DBTX), new(*sql.DB)),
+		wire.Bind(new(controller.CustomerRepository), new(*gormrepo.CustomerRepo)),
 	)
 	return nil, nil, nil
 }
