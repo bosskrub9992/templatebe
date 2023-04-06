@@ -23,10 +23,10 @@ func main() {
 		}
 	}()
 
-	gracefulShutdown := make(chan os.Signal, 1)
-	signal.Notify(gracefulShutdown, os.Interrupt)
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
 
-	<-gracefulShutdown
+	<-quit
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

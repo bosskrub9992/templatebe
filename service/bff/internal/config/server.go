@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -10,6 +12,6 @@ type RESTServerConfig struct {
 
 func NewRESTServerConfig() *RESTServerConfig {
 	return &RESTServerConfig{
-		Port: viper.GetString("server.port"),
+		Port: fmt.Sprintf(":%d", viper.GetInt("server.port")),
 	}
 }
