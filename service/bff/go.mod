@@ -3,7 +3,7 @@ module github.com/bosskrub9992/templatebe/service/bff
 go 1.20
 
 require (
-	github.com/bosskrub9992/templatebe/corelib v0.0.0-20230330185123-76266ac8e353
+	github.com/bosskrub9992/templatebe/corelib v0.0.0-20230406091419-3a844f0a4f15
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/labstack/echo/v4 v4.10.2
@@ -43,8 +43,9 @@ require (
 	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/sys v0.7.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/postgres v1.5.0 // indirect
 )
