@@ -3,7 +3,6 @@ package errs
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/spf13/viper"
 )
@@ -17,14 +16,6 @@ type Err struct {
 
 func (e *Err) Error() string {
 	return e.Message
-}
-
-func New(code Code, err error) Err {
-	return Err{
-		Code:    code,
-		Message: viper.GetString(strconv.Itoa(int(code))),
-		Errors:  err.Error(),
-	}
 }
 
 func NewBind(err error) Err {
