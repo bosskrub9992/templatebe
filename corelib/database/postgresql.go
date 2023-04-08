@@ -12,9 +12,9 @@ import (
 type PostgresConfig struct {
 	Host     string
 	Port     string
+	DBName   string
 	Username string
 	Password string
-	DBName   string
 	SSLmode  string
 }
 

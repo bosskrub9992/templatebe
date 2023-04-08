@@ -9,9 +9,9 @@ func NewPostgresConfig() *database.PostgresConfig {
 	return &database.PostgresConfig{
 		Host:     viper.GetString("database.host"),
 		Port:     viper.GetString("database.port"),
-		Username: viper.GetString("database.dbname"),
-		Password: viper.GetString("database.username"),
-		DBName:   viper.GetString("database.password"),
+		Username: viper.GetString("database.username"),
+		Password: viper.GetString("database.password"),
+		DBName:   viper.GetString("database.dbname"),
 		SSLmode:  viper.GetString("database.sslmode"),
 	}
 }
