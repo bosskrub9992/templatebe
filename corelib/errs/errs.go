@@ -14,7 +14,7 @@ type Err struct {
 	Errors  string `json:"errors,omitempty"`
 }
 
-func (e *Err) Error() string {
+func (e Err) Error() string {
 	return e.Message
 }
 

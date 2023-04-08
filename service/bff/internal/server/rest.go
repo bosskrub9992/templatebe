@@ -22,10 +22,12 @@ type RESTServer struct {
 func NewRESTServer(config *config.RESTServerConfig, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
 	e := echo.New()
 
-	e.Use(middleware.RequestID())
-	e.Use(middleware.Recover())
-	e.Use(middleware.CORS())
-	e.Use(loggers.EchoMiddlewareZerolog(logger))
+	e.Use(
+		middleware.Recover(),
+		middleware.CORS(),
+		middleware.RequestID(),
+		loggers.EchoMiddlewareZerolog(logger),
+	)
 
 	e.Validator = validators.NewRequestValidator()
 
