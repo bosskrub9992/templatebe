@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/bosskrub9992/templatebe/corelib/loggers"
 	"github.com/bosskrub9992/templatebe/corelib/validators"
@@ -15,11 +16,11 @@ import (
 
 type RESTServer struct {
 	e       *echo.Echo
-	config  *config.RESTServerConfig
+	config  *config.Config
 	handler *v1.Handler
 }
 
-func NewRESTServer(config *config.RESTServerConfig, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
+func NewRESTServer(config *config.Config, logger *zerolog.Logger, handler *v1.Handler) *RESTServer {
 	e := echo.New()
 
 	e.Use(
@@ -39,7 +40,8 @@ func NewRESTServer(config *config.RESTServerConfig, logger *zerolog.Logger, hand
 }
 
 func (r *RESTServer) Serve() error {
-	return r.e.Start(r.config.Port)
+	address := fmt.Sprintf(":%s", r.config.Server.Port)
+	return r.e.Start(address)
 }
 
 func (r *RESTServer) Shutdown(ctx context.Context) error {

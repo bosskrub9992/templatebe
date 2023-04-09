@@ -20,24 +20,26 @@ import (
 // Injectors from wire.go:
 
 func InitializeRestServer() (*server.RESTServer, func(), error) {
-	restServerConfig := config.NewRESTServerConfig()
-	zerologConfig := config.NewLoggerConfig()
+	configConfig := config.New()
+	zerologConfig := config.NewLoggerConfig(configConfig)
 	logger := loggers.NewZerolog(zerologConfig)
-	postgresConfig := config.NewPostgresConfig()
-	db, err := database.NewPostgres(postgresConfig)
+	postgresConfig := config.NewPostgresConfig(configConfig)
+	db, cleanup, err := database.NewPostgres(postgresConfig, logger)
 	if err != nil {
 		return nil, nil, err
 	}
-	gormDB, err := database.NewGormDBPostgres(db)
+	gormDB, err := database.NewGormDBPostgres(db, logger)
 	if err != nil {
+		cleanup()
 		return nil, nil, err
 	}
 	customerRepo := gormrepo.NewCustomerRepo(gormDB)
 	customerController := controller.NewCustomerController(logger, customerRepo)
 	healthController := controller.NewHealthController()
 	handler := v1.NewHandler(customerController, healthController)
-	restServer := server.NewRESTServer(restServerConfig, logger, handler)
+	restServer := server.NewRESTServer(configConfig, logger, handler)
 	return restServer, func() {
+		cleanup()
 	}, nil
 }
 

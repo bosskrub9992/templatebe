@@ -37,7 +37,6 @@ func EchoMiddlewareZerolog(logger *zerolog.Logger) echo.MiddlewareFunc {
 				Str("method", req.Method).
 				Str("query", req.URL.RawQuery).
 				Str("ip", c.RealIP()).
-				Str("agent", req.UserAgent()).
 				Bytes("body", body).
 				Msgf("rid:%s request", rid)
 

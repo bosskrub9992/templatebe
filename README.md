@@ -61,7 +61,11 @@ A monorepo built using Golang and adhering to Clean Architecture principles. Thi
     docker exec -i postgres psql -U postgres -c "create database postgres_template_be"
 ```
 
-5. migrate database by executing the sql files in repository in all services
+5. migrate database by executing the sql files in migration folder in all services or use goose cmd by run
+```sh
+    cd ./service/bff/migration
+    goose postgres "user=postgres password=postgres dbname=postgres_template_be sslmode=disable" up
+```
 
 
 6. start service

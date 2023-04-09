@@ -17,7 +17,8 @@ func TestCustomerController_CreateCustomer(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
-	zerologConfig := config.NewLoggerConfig()
+	cfg := config.New()
+	zerologConfig := config.NewLoggerConfig(cfg)
 	logger := loggers.NewZerolog(zerologConfig)
 	mockCustomerRepo := mockrepo.NewMockCustomerRepository(mockCtrl)
 
