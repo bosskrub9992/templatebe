@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	restServer, closeRestServer, err := InitializeRestServer()
+	restServer, cleanUp, err := InitializeRestServer()
 	if err != nil {
 		panic(err)
 	}
-	defer closeRestServer()
+	defer cleanUp()
 
 	restServer.RegisterRoute()
 
