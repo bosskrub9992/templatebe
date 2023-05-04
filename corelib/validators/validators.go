@@ -51,12 +51,12 @@ func NewRequestValidator() *requestValidator {
 
 func (rv *requestValidator) Validate(i interface{}) error {
 	if err := rv.validator.Struct(i); err != nil {
-		messages := make([]string, 0)
-		for _, e := range err.(validator.ValidationErrors) {
+		fieldErrors := err.(validator.ValidationErrors)
+		messages := []string{}
+		for _, e := range fieldErrors {
 			messages = append(messages, e.Translate(rv.trans))
 		}
-		errMessage := strings.Join(messages, ", ")
-		return errors.New(errMessage)
+		return errors.New(strings.Join(messages, ", "))
 	}
 
 	return nil
