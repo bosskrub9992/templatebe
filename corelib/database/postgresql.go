@@ -45,12 +45,15 @@ func NewPostgres(cfg *PostgresConfig, logger *zerolog.Logger) (*sql.DB, func(), 
 }
 
 func NewGormDBPostgres(sqlDB *sql.DB, logger *zerolog.Logger) (*gorm.DB, error) {
-	gormDB, err := gorm.Open(postgres.New(postgres.Config{
+	dialector := postgres.New(postgres.Config{
 		Conn: sqlDB,
-	}), &gorm.Config{})
+	})
+
+	gormDB, err := gorm.Open(dialector, &gorm.Config{})
 	if err != nil {
 		logger.Err(err).Send()
 		return nil, err
 	}
+	
 	return gormDB, nil
 }
