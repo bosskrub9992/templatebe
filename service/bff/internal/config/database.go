@@ -2,16 +2,15 @@ package config
 
 import (
 	"github.com/bosskrub9992/templatebe/corelib/database"
-	"github.com/spf13/viper"
 )
 
-func NewPostgresConfig() *database.PostgresConfig {
+func NewPostgresConfig(cfg *Config) *database.PostgresConfig {
 	return &database.PostgresConfig{
-		Host:     viper.GetString("database.host"),
-		Port:     viper.GetString("database.port"),
-		Username: viper.GetString("database.dbname"),
-		Password: viper.GetString("database.password"),
-		DBName:   viper.GetString("database.username"),
-		SSLmode:  viper.GetString("database.sslmode"),
+		Host:     cfg.Database.Host,
+		Port:     cfg.Database.Port,
+		Username: cfg.Database.Username,
+		Password: cfg.Database.Password,
+		DBName:   cfg.Database.DBName,
+		SSLmode:  cfg.Database.SSLMode,
 	}
 }

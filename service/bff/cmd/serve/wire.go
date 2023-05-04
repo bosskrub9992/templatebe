@@ -27,7 +27,6 @@ var repositorySet = wire.NewSet(
 func InitializeRestServer() (*server.RESTServer, func(), error) {
 	wire.Build(
 		server.NewRESTServer,
-		config.NewRESTServerConfig,
 		v1.NewHandler,
 		controllerSet,
 		repositorySet,
@@ -36,6 +35,7 @@ func InitializeRestServer() (*server.RESTServer, func(), error) {
 		config.NewPostgresConfig,
 		loggers.NewZerolog,
 		config.NewLoggerConfig,
+		config.New,
 
 		wire.Bind(new(controller.CustomerRepository), new(*gormrepo.CustomerRepo)),
 	)

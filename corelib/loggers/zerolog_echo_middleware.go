@@ -1,8 +1,11 @@
 package loggers
 
 import (
+	"bytes"
+	"io"
 	"time"
 
+	"github.com/bosskrub9992/templatebe/corelib/errs"
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog"
 )
@@ -13,18 +16,31 @@ func EchoMiddlewareZerolog(logger *zerolog.Logger) echo.MiddlewareFunc {
 			start := time.Now()
 
 			req := c.Request()
+
 			rid := req.Header.Get(echo.HeaderXRequestID)
+			if rid == "" {
+				rid = c.Response().Header().Get(echo.HeaderXRequestID)
+			}
+
+			body, err := io.ReadAll(c.Request().Body)
+			if err != nil {
+				unknownErr := errs.NewUnknown(err)
+				return c.JSON(unknownErr.Status, unknownErr)
+			}
+
+			// Set the body back to the request.
+			c.Request().Body = io.NopCloser(bytes.NewReader(body))
+
 			logger.Info().
-				Str("rid", rid).
 				Str("uri", req.RequestURI).
 				Str("host", req.Host).
 				Str("method", req.Method).
 				Str("query", req.URL.RawQuery).
-				Any("body", req.Body).
 				Str("ip", c.RealIP()).
+				Bytes("body", body).
 				Msgf("rid:%s request", rid)
 
-			err := next(c)
+			err = next(c)
 			if err != nil {
 				c.Error(err)
 			}
@@ -48,7 +64,6 @@ func EchoMiddlewareZerolog(logger *zerolog.Logger) echo.MiddlewareFunc {
 			}
 
 			loggerWithLevel.
-				Str("rid", rid).
 				Int("code", res.Status).
 				Dur("latency", time.Since(start)).
 				AnErr("err", err).
